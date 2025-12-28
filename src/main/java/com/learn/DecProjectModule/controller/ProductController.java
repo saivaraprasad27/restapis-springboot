@@ -5,6 +5,8 @@ import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.service.ProductService;
 import org.apache.tomcat.util.net.jsse.JSSEUtil;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,11 +44,13 @@ public class ProductController {
 
     // This will help in get product details
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
-        System.out.println(".....Starting the api here....");
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
         Product p = productService.getSingleProduct(id);
-        System.out.println("....Ending the ap here....");
-        return p;
+
+        ResponseEntity<Product> response = new ResponseEntity<>(
+                p, HttpStatus.OK
+        );
+        return response;
     }
 
     // This will help in Update product
@@ -60,9 +64,14 @@ public class ProductController {
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ErrorDto handleProductNotFoundException(Exception e){
+    public ResponseEntity<ErrorDto> handleProductNotFoundException(Exception e){
         ErrorDto errorDto = new ErrorDto();
         errorDto.setMessage(e.getMessage());
-        return errorDto;
+
+        ResponseEntity<ErrorDto> response = new ResponseEntity<>(
+                errorDto,HttpStatus.NOT_FOUND
+        );
+
+        return response;
     }
 }
