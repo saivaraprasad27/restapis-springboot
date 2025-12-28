@@ -1,6 +1,7 @@
 package com.learn.DecProjectModule.service;
 
 import com.learn.DecProjectModule.dto.FakeStoreProductDto;
+import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,10 +17,14 @@ public class FakeStoreProductService implements ProductService{
         this.restTemplate = restTemplate;
     }
 
-    public Product getSingleProduct(Long id) {
+    public Product getSingleProduct(Long id) throws ProductNotFoundException {
         System.out.println("Inside FK Product Service");
-        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"+ id, FakeStoreProductDto.class);
-        System.out.println(fakeStoreProductDto.toString());
+        FakeStoreProductDto fakeStoreProductDto = restTemplate.
+                getForObject("https://fakestoreapi.com/products/"+ id, FakeStoreProductDto.class);
+
+        if(fakeStoreProductDto == null){
+            throw new ProductNotFoundException("Product Not Found with id: "+id);
+        }
         return fakeStoreProductDto.getProduct();
     }
 

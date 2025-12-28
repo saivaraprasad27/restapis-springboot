@@ -1,5 +1,7 @@
 package com.learn.DecProjectModule.controller;
 
+import com.learn.DecProjectModule.dto.ErrorDto;
+import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.service.ProductService;
 import org.apache.tomcat.util.net.jsse.JSSEUtil;
@@ -40,7 +42,7 @@ public class ProductController {
 
     // This will help in get product details
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
+    public Product getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
         System.out.println(".....Starting the api here....");
         Product p = productService.getSingleProduct(id);
         System.out.println("....Ending the ap here....");
@@ -55,5 +57,12 @@ public class ProductController {
     // This will help in Delete product
     public void deleteProduct(Long id){
 
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ErrorDto handleProductNotFoundException(Exception e){
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setMessage(e.getMessage());
+        return errorDto;
     }
 }

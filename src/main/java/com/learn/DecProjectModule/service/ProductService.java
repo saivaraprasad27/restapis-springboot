@@ -1,12 +1,13 @@
 package com.learn.DecProjectModule.service;
 
+import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    Product getSingleProduct(Long id);
+    Product getSingleProduct(Long id) throws ProductNotFoundException;
     List<Product> getAllProducts();
     Product createProduct(Long id, String title,String description, double price, String category, String image);
 }
