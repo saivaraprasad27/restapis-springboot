@@ -3,6 +3,8 @@ package com.learn.DecProjectModule.service;
 import com.learn.DecProjectModule.dto.FakeStoreProductDto;
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,5 +45,33 @@ public class FakeStoreProductService implements ProductService{
         FakeStoreProductDto response = restTemplate.postForObject("https://fakestoreapi.com/products",
                 fakeStoreProductDto,FakeStoreProductDto.class);
         return response.getProduct();
+    }
+
+
+/*       Client
+          |
+          |  DELETE /products/10
+          v
+     Controller (@DeleteMapping)
+          |
+          |  calls service
+          v
+    Service (RestTemplate)
+          |
+          |  DELETE https://fakestoreapi.com/products/10
+          v
+    FakeStore API
+
+ */
+
+    public Product deleteProduct(Long id){
+        ResponseEntity<FakeStoreProductDto> response =
+                restTemplate.exchange(
+                        "https://fakestoreapi.com/products/" + id,
+                        HttpMethod.DELETE,
+                        null,
+                        FakeStoreProductDto.class
+                );
+        return response.getBody().getProduct();
     }
 }

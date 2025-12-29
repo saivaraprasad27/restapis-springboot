@@ -59,8 +59,13 @@ public class ProductController {
     }
 
     // This will help in Delete product
-    public void deleteProduct(Long id){
-
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable("id") Long id){
+        Product p = productService.deleteProduct(id);
+        ResponseEntity<Product> response = new ResponseEntity<>(
+                p,HttpStatus.OK
+        );
+        return response;
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
