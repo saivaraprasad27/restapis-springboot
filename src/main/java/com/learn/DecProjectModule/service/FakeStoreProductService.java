@@ -74,4 +74,8 @@ public class FakeStoreProductService implements ProductService{
                 );
         return response.getBody().getProduct();
     }
+
+    public Product updateProduct(Long id, String title,String description){
+        return null;
+    }
 }
