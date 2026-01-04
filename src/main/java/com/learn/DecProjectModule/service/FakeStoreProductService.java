@@ -20,7 +20,6 @@ public class FakeStoreProductService implements ProductService{
     }
 
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
-        System.out.println("Inside FK Product Service");
         FakeStoreProductDto fakeStoreProductDto = restTemplate.
                 getForObject("https://fakestoreapi.com/products/"+ id, FakeStoreProductDto.class);
 
