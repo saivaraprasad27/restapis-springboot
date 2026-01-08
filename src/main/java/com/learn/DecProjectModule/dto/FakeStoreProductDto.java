@@ -61,19 +61,19 @@ public class FakeStoreProductDto {
 
     //This will get the product of implementation using the values from fake store
     public Product getProduct(){
-        Product product = new Product();
-        product.setId(id);
-        product.setTitle(title);
-        product.setPrice(price);
-        product.setDescription(description);
-        product.setImageUrl(image);
+//        Product product = new Product();
+//        product.setId(id);
+//        product.setTitle(title);
+//        product.setPrice(price);
+//        product.setDescription(description);
+//        product.setImageUrl(image);
+//
+//        Category category1 = new Category();
+//        category1.setTitle(category);
+//
+//        product.setCategory(category1);
 
-        Category category1 = new Category();
-        category1.setTitle(category);
-
-        product.setCategory(category1);
-
-        return product;
+        return null;
     }
 
     @Override

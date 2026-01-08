@@ -5,6 +5,7 @@ import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.service.ProductService;
 import org.apache.tomcat.util.net.jsse.JSSEUtil;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ProductController {
 
     private ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("selfProductService") ProductService productService){
         this.productService = productService;
     }
 
@@ -39,7 +40,7 @@ public class ProductController {
         Product p = productService.createProduct(product.getId(),product.getTitle(),
                 product.getDescription(),product.getPrice(),product.getCategory().getTitle(),
                 product.getImageUrl());
-        return p;
+        return product;
     }
 
     // This will help in get product details

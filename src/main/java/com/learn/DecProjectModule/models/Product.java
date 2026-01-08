@@ -23,6 +23,18 @@ public class Product extends BaseModel{
      * HTML, JSP, Thymeleaf, etc.
      */
 
+    // No-args constructor
+    public Product() {
+    }
+
+    // All-args constructor
+    public Product(String title, String description, Double price, String imageUrl) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
     private String title;
     private String description;
     private Double price;
