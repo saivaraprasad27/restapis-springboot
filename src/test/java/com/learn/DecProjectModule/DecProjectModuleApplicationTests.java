@@ -40,5 +40,6 @@ class DecProjectModuleApplicationTests {
     void testProjection(){
         List<ProductProjection> product = productRepository.getProductByCategoryIdUsingProjections(1L);
         System.out.println(product.get(0).getId());
+        System.out.println(product.get(0).getTitle());
     }
 }
