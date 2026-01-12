@@ -39,7 +39,7 @@ class DecProjectModuleApplicationTests {
     @Test
     void testProjection(){
         List<ProductProjection> product = productRepository.getProductByCategoryIdUsingProjections(1L);
-        //projection shown necessary columns only
         System.out.println(product.get(0).getId());
+        System.out.println(product.get(0).getTitle());
     }
 }
