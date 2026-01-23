@@ -3,6 +3,7 @@ package com.learn.DecProjectModule.service;
 import com.learn.DecProjectModule.dto.FakeStoreProductDto;
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,11 @@ public class FakeStoreProductService implements ProductService{
         return fakeStoreProductDto.getProduct();
     }
 
-    public List<Product> getAllProducts() {
-        return List.of();
+    @Override
+    public Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName) {
+        return null;
     }
+
 
     public Product createProduct(Long id, String title, String description, double price, String category, String image) {
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();

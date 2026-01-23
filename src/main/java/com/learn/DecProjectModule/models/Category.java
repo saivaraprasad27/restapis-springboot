@@ -1,5 +1,6 @@
 package com.learn.DecProjectModule.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Category extends BaseModel{
     private String title;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 

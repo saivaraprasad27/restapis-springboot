@@ -2,13 +2,14 @@ package com.learn.DecProjectModule.service;
 
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ProductService {
 
     Product getSingleProduct(Long id) throws ProductNotFoundException;
-    List<Product> getAllProducts();
+    Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName);
     Product createProduct(Long id, String title,String description, double price, String category, String image);
     Product deleteProduct(Long id);
     Product updateProduct(Long id, String title,String description);

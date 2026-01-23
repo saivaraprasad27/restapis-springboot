@@ -6,9 +6,12 @@ import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.service.ProductService;
 import org.apache.tomcat.util.net.jsse.JSSEUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -79,5 +82,11 @@ public class ProductController {
         );
 
         return response;
+    }
+
+    //pageSize, pageNumber and sortOrder
+    @GetMapping("/products")
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize, @RequestParam("fieldName") String fieldName){
+        return productService.getAllProducts(pageNumber, pageSize, fieldName);
     }
 }
