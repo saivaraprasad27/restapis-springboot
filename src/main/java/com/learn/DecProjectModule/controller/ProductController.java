@@ -87,6 +87,14 @@ public class ProductController {
     //pageSize, pageNumber and sortOrder
     @GetMapping("/products")
     public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize, @RequestParam("fieldName") String fieldName){
-        return productService.getAllProducts(pageNumber, pageSize, fieldName);
+        return productService.getAllProductsList(pageNumber, pageSize, fieldName);
     }
+
+    //Offset and limit
+    @GetMapping("/products")
+    public Page<Product> getAllProductsList(@RequestParam("limit") int limit, @RequestParam("offset") int offset, @RequestParam("fieldName") String fieldName){
+        return productService.getAllProductsList(limit, offset, fieldName);
+    }
+
+
 }
