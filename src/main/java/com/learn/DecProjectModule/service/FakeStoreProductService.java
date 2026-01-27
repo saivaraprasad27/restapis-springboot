@@ -4,29 +4,43 @@ import com.learn.DecProjectModule.dto.FakeStoreProductDto;
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
+    private RedisTemplate redisTemplate;
 
-    private FakeStoreProductService(RestTemplate restTemplate){
+    private FakeStoreProductService(RestTemplate restTemplate, RedisTemplate redisTemplate){
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
+        //1. Redis Used
+        //2. First part is : assume it as table name
+        //3. Second part : key of the product
+        Product redisProduct = (Product) redisTemplate.opsForHash().get("PRODUCTS","PRODUCTS_"+id);
+
+        if(redisProduct != null){
+            //cache hit
+            return redisProduct;
+        }
+
         FakeStoreProductDto fakeStoreProductDto = restTemplate.
                 getForObject("https://fakestoreapi.com/products/"+ id, FakeStoreProductDto.class);
 
         if(fakeStoreProductDto == null){
             throw new ProductNotFoundException("Product Not Found with id: "+id);
         }
+
+        //cache miss
+        redisTemplate.opsForHash().put("PRODUCTS","PRODUCTS_"+id,fakeStoreProductDto.getProduct());
         return fakeStoreProductDto.getProduct();
     }
 

@@ -9,9 +9,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class RedisTemplateConfig {
 
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
+    public JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
     }
+
 
     /**
      * Creates a RedisTemplate bean
@@ -21,7 +22,7 @@ public class RedisTemplateConfig {
      */
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplateConfig() {
+    public RedisTemplate<String, Object> redisTemplate() {
         //Create an object of redisTemplate and define dataType of key,value
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         // Setting the connection factory here
