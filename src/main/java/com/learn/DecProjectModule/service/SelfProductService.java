@@ -77,4 +77,9 @@ public class SelfProductService implements ProductService{
     public Product updateProduct(Long id, String title, String description) {
         return null;
     }
+
+    @Override
+    public Page<Product> getAllProductsList(int limit, int offset, String fieldName) {
+        return null;
+    }
 }

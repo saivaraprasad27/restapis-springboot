@@ -90,11 +90,4 @@ public class ProductController {
         return productService.getAllProductsList(pageNumber, pageSize, fieldName);
     }
 
-    //Offset and limit
-    @GetMapping("/products")
-    public Page<Product> getAllProductsList(@RequestParam("limit") int limit, @RequestParam("offset") int offset, @RequestParam("fieldName") String fieldName){
-        return productService.getAllProductsList(limit, offset, fieldName);
-    }
-
-
 }
