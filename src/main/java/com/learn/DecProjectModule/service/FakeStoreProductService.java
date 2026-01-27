@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.TimeUnit;
+
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
 
@@ -39,8 +41,10 @@ public class FakeStoreProductService implements ProductService{
             throw new ProductNotFoundException("Product Not Found with id: "+id);
         }
 
-        //cache miss
+        //cache miss and Delete the Redis key PRODUCTS automatically after 10 minutes
         redisTemplate.opsForHash().put("PRODUCTS","PRODUCTS_"+id,fakeStoreProductDto.getProduct());
+        redisTemplate.expire("PRODUCTS", 10, TimeUnit.MINUTES);
+
         return fakeStoreProductDto.getProduct();
     }
 
