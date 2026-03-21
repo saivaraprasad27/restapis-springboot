@@ -5,6 +5,7 @@ import com.learn.DecProjectModule.models.Category;
 import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.repository.CategoryRepository;
 import com.learn.DecProjectModule.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
+@Slf4j
 public class SelfProductService implements ProductService{
 
     private ProductRepository productRepository;
@@ -26,7 +28,9 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
-        Optional<Product> p = productRepository.findById(id);
+        log.info("Retrieve Product");
+        log.error("Retrieve Product");
+        log.warn("Retrieve Product");        Optional<Product> p = productRepository.findById(id);
         if(p.isPresent()){
             return p.get();
         }

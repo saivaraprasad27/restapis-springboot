@@ -3,6 +3,7 @@ package com.learn.DecProjectModule.service;
 import com.learn.DecProjectModule.dto.FakeStoreProductDto;
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.concurrent.TimeUnit;
 
 @Service("fakeStoreProductService")
+@Slf4j
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
@@ -27,6 +29,10 @@ public class FakeStoreProductService implements ProductService{
         //1. Redis Used
         //2. First part is : assume it as table name
         //3. Second part : key of the product
+        log.info("Retrieve Product");
+        log.error("Retrieve Product");
+        log.warn("Retrieve Product");
+
         Product redisProduct = (Product) redisTemplate.opsForHash().get("PRODUCTS","PRODUCTS_"+id);
 
         if(redisProduct != null){
