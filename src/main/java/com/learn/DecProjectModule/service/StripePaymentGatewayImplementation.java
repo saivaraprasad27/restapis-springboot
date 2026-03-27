@@ -14,7 +14,7 @@ public class StripePaymentGatewayImplementation implements  PaymentService{
     @Override
     public String makePayment(String orderId, Long amount) throws StripeException {
         //1. Create priceCreate Param Object -> INR, Amount, orderId and
-        Stripe.apiKey = System.getenv("STRIPE_SECRET_KEY");;
+        Stripe.apiKey = "&{SECRET_KEY}";
 
         PriceCreateParams params =
                 PriceCreateParams.builder()
