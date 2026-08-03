@@ -29,9 +29,7 @@ public class FakeStoreProductService implements ProductService{
         //1. Redis Used
         //2. First part is : assume it as table name
         //3. Second part : key of the product
-        log.info("Retrieve Product");
-        log.error("Retrieve Product");
-        log.warn("Retrieve Product");
+        log.info("Retrieving product with id {}", id);
 
         Product redisProduct = (Product) redisTemplate.opsForHash().get("PRODUCTS","PRODUCTS_"+id);
 

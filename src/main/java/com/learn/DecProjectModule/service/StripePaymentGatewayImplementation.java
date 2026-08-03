@@ -6,15 +6,26 @@ import com.stripe.model.PaymentLink;
 import com.stripe.model.Price;
 import com.stripe.param.PaymentLinkCreateParams;
 import com.stripe.param.PriceCreateParams;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StripePaymentGatewayImplementation implements  PaymentService{
 
+    private final String secretKey;
+    private final String successUrl;
+
+    public StripePaymentGatewayImplementation(
+            @Value("${stripe.secret.key}") String secretKey,
+            @Value("${stripe.success.url}") String successUrl) {
+        this.secretKey = secretKey;
+        this.successUrl = successUrl;
+    }
+
     @Override
     public String makePayment(String orderId, Long amount) throws StripeException {
         //1. Create priceCreate Param Object -> INR, Amount, orderId and
-        Stripe.apiKey = "&{SECRET_KEY}";
+        Stripe.apiKey = secretKey;
 
         PriceCreateParams params =
                 PriceCreateParams.builder()
@@ -41,7 +52,7 @@ public class StripePaymentGatewayImplementation implements  PaymentService{
                                         .setType(PaymentLinkCreateParams.AfterCompletion.Type.REDIRECT)
                                         .setRedirect(
                                                 PaymentLinkCreateParams.AfterCompletion.Redirect.builder()
-                                                        .setUrl("https://unifyapps.com/")
+                                                        .setUrl(successUrl)
                                                         .build()
                                         )
                                         .build()

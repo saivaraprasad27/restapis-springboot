@@ -59,21 +59,18 @@ public class FakeStoreProductDto {
         return image;
     }
 
-    //This will get the product of implementation using the values from fake store
+    //This will map the fake store payload into our own Product model
     public Product getProduct(){
-//        Product product = new Product();
-//        product.setId(id);
-//        product.setTitle(title);
-//        product.setPrice(price);
-//        product.setDescription(description);
-//        product.setImageUrl(image);
-//
-//        Category category1 = new Category();
-//        category1.setTitle(category);
-//
-//        product.setCategory(category1);
+        Product product = new Product(title, description, price, image);
+        product.setId(id);
 
-        return null;
+        if (category != null) {
+            Category category1 = new Category();
+            category1.setTitle(category);
+            product.setCategory(category1);
+        }
+
+        return product;
     }
 
     @Override

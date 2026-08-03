@@ -4,7 +4,6 @@ import com.learn.DecProjectModule.dto.ErrorDto;
 import com.learn.DecProjectModule.exceptions.ProductNotFoundException;
 import com.learn.DecProjectModule.models.Product;
 import com.learn.DecProjectModule.service.ProductService;
-import org.apache.tomcat.util.net.jsse.JSSEUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -43,7 +42,7 @@ public class ProductController {
         Product p = productService.createProduct(product.getId(),product.getTitle(),
                 product.getDescription(),product.getPrice(),product.getCategory().getTitle(),
                 product.getImageUrl());
-        return product;
+        return p;
     }
 
     // This will help in get product details
@@ -87,7 +86,7 @@ public class ProductController {
     //pageSize, pageNumber and sortOrder
     @GetMapping("/products")
     public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize, @RequestParam("fieldName") String fieldName){
-        return productService.getAllProductsList(pageNumber, pageSize, fieldName);
+        return productService.getAllProducts(pageNumber, pageSize, fieldName);
     }
 
 }

@@ -28,13 +28,12 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
-        log.info("Retrieve Product");
-        log.error("Retrieve Product");
-        log.warn("Retrieve Product");        Optional<Product> p = productRepository.findById(id);
+        log.info("Retrieving product with id {}", id);
+        Optional<Product> p = productRepository.findById(id);
         if(p.isPresent()){
             return p.get();
         }
-        throw new ProductNotFoundException("Product is not found is database");
+        throw new ProductNotFoundException("Product not found in database with id: " + id);
     }
 
     @Override
